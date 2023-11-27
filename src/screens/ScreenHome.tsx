@@ -5,24 +5,24 @@ import { SideBar } from "../components/SideBar";
 
 const ScreenHome = () => {
   return (
-    <View style={styles.container2}>
+    <View style={styles.ContainerDefaultWhite}>
       <SideBar
-        styleView={styles.container4}
-        styleIcon={styles.text4}
-        styleImage={styles.image3}
+        styleView={styles.ContainerSiderBarBlack}
+        styleIcon={styles.FontMediumWhite}
+        styleImage={styles.ImageIcon}
       />
-      <View style={styles.container3}>
+      <View style={styles.ContainerBottomRightWhite}>
         <RowOfCategory 
           title="Comédias" 
           category="comedy"
-          textStyle={styles.text3}
-          imageStyle={styles.image2}
+          textStyle={styles.FontMediumGray}
+          imageStyle={styles.ImagePoster}
         />
         <RowOfCategory
           title="Documentarios"
           category="documentaries"
-          textStyle={styles.text3}
-          imageStyle={styles.image2}
+          textStyle={styles.FontMediumGray}
+          imageStyle={styles.ImagePoster}
         />
       </View>
     </View>

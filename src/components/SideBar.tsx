@@ -23,7 +23,6 @@ interface SideBarProps {
 const SideBar: FC<SideBarProps> = ({ styleView, styleImage, styleIcon }) => {
   let size = styleIcon.fontSize;
   let color = styleIcon.color?.toString();
-  let margin = styleIcon.margin;
   let icons = [ faHome, faSearch, faDownload ];
 
   return (
@@ -39,7 +38,7 @@ const SideBar: FC<SideBarProps> = ({ styleView, styleImage, styleIcon }) => {
             <FontAwesomeIcon 
               icon={item} 
               size={size} 
-              style={{ color, margin }}
+              style={{ color, margin: 10 }}
             />
           )
         }

@@ -1,135 +1,145 @@
 import { StyleSheet } from "react-native";
 
-// Colors
-const colorsNames = ['White', 'Black', 'Gray', 'Red'];
-const colorsValues = ['#ffffff', '#070707', '#3f3f3f', '#f42c1d'];
-
-// Font Sizes
-const fontSizesNames = ['Small', 'Medium', 'Larger'];
-const fontSizesValues = [16, 22, 26];
-
-// Fonts
-const createFontsNames = () => {
-  let fontsNames: Array<string> = [];
-  let fontName: string = '';
-
-  colorsNames.forEach(colorName => {
-    fontSizesNames.forEach(fontSizeName => {
-      fontName = colorName + fontSizeName;
-      fontsNames.push(fontName);
-    });
-  });
-
-  return fontsNames;
+// Combine Function
+interface combineObjectsProps {
+  prefix: string;
+  obj1: object;
+  obj2: object;
+  makeNew: Function;
 };
 
-const createFontsValues = () => {
-  let fontValues: Array<object> = [];
-  let fontValue: object = {};
+const combineObjects = ({prefix, obj1, obj2, makeNew}: combineObjectsProps) => {
+  let obj3: object = {};
+  let val3: any;
+  let attr3: string;
 
-  colorsValues.forEach(colorValue => {
-    fontSizesValues.forEach(fontSizeValue => {
-      fontValue = { color: colorValue, fontSize: fontSizeValue };
-      fontValues.push(fontValue);
+  Object.entries(obj1).map(([attr1, val1]) => {
+    Object.entries(obj2).map(([attr2, val2]) => {
+      attr3 = `${prefix}${attr1}${attr2}`;
+      val3 = makeNew(val1, val2);
+      obj3[attr3] = val3;
     });
   });
-
-  return fontValues;
+  return obj3;
 }
 
-const fontsNames = createFontsNames();
-const fontValues = createFontsValues();
+// Colors
 
+// Set Atributtes
+const colors: object = {
+  White: '#ffffff',
+  Black: '#070707',
+  Gray: '#3f3f3f',
+  Red: '#f42c1d',
+};
 
-// 
-interface Style {
-   container1: object;
-   container2: object;
-   container3: object;
-   container4: object;
-   text1: object;
-   text2: object;
-   text3: object;
-   text4: object;
-   button1: object;
-   image1: object;
-   image2: object;
-   image3: object;
-}
+// Fonts
 
-const styles: Style = StyleSheet.create({
+// Make Function
+const makeFont = (val1: number, val2: string) => { 
+  return {fontSize:val1, color: val2};
+};
 
-  // Container
-  container1: {
-     flex:1,
-     padding: 10,
-     alignItems: 'center',
-     justifyContent: 'center',
-     backgroundColor:'#070707',
-  },
-  container2: {
-    flex:1,
-    //paddingTop: 100,
+// Set Atributtes
+const fontSizes = {
+  Small: 16,
+  Medium: 22,
+  Larger: 26,
+};
+
+// Create Styles
+const fonts = combineObjects({
+  prefix:'Font',
+  obj1:fontSizes,
+  obj2:colors,
+  makeNew:makeFont
+});
+
+// Buttons
+
+// Make Function
+const makeButton = (val1:object, val2: string) => {
+  return { ...val1, backgroundColor: val2 };
+};
+
+// Set Atributtes
+const buttonShapes = {
+  Default: { padding: 10 }
+};
+
+// Create Styles
+const buttons = combineObjects({
+  prefix:'Button',
+  obj1: buttonShapes,
+  obj2: colors,
+  makeNew:makeButton
+});
+
+// Containers
+
+// Make Function
+const makeContainer = (val1: object, val2: string) => {
+  const baseContainer = {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#fff',
+  };
+  return { ...baseContainer, ...val1, backgroundColor: val2 };
+};
+
+// Set Atributtes
+const containerLayouts = {
+  Default: {},
+  SiderBar: {
+    left: 0,
+    width: '20%',
+    height: '100%',
+    position: 'absolute',
+    paddingVertical:  30,
   },
-  container3: {
+  BottomRight: {
     marginTop: 100,
     marginLeft: 100,
   },
-  container4: {
-    width: 70, 
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#070707',
+};
 
-    position: 'absolute',
-    left: 0,
-  },
+// Create Styles
+const containers = combineObjects({
+  prefix:'Container',
+  obj1: containerLayouts,
+  obj2: colors,
+  makeNew: makeContainer
+})
 
-  // texts
-  text1: {
-     color:'#fff',
-     fontSize: 16,
-  },
-  text2: {
-     color: '#fff',
-     fontSize: 26,
-  },
-  text3: {
-    color: '#3f3f3f',
-    fontSize: 22,
-  },
-  text4: {
-    color: '#fff',
-    fontSize: 25,
-    margin: 10,
-  },
+// Imagens
 
-  // Buttons
-  button1: {
-     padding: 10,
-     backgroundColor:'#f42c1d',
-  },
+// Make Function
 
-  // Images
-  image1: {
-     width: 100,
-     height: 100
-  },
-  image2: {
-     width: 200,
-     height: 250,
-     margin: 10,
-  },
-  image3: {
+// Set Atributes
+
+// Create Styles
+const imagens = {
+  ImageIcon: {
     width: 50,
     height: 50,
-    marginTop: 30,
-    marginBottom: 500,
-  }
+  },
+  ImageLogo: {
+    width: 100,
+    height: 100
+  },
+  ImagePoster: {
+    width: 200,
+    height: 250,
+    margin:  10,
+  },
+};
+
+// Create Style Sheet
+const styles = StyleSheet.create({ 
+  ...fonts,
+  ...buttons,
+  ...imagens,
+  ...containers,
 });
 
 export { styles };

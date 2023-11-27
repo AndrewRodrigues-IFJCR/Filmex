@@ -7,12 +7,12 @@ const ScreenInitial = () => {
   let navigation = useNavigation();
 
   return (
-    <View style={styles.container1}>
-      <Image style={styles.image1} source={netflixLogo}/>
-      <Text style={styles.text2}>WELCOME TO NETFLIX!</Text>
-      <Text style={styles.text1}>Swipe left to see what we do</Text>
-      <TouchableOpacity style={styles.button1} onPress={() => { navigation.navigate('ScreenHome') }}>
-        <Text style={styles.text2}>JOIN NOW</Text>
+    <View style={styles.ContainerDefaultBlack}>
+      <Image style={styles.ImageLogo} source={netflixLogo}/>
+      <Text style={styles.FontMediumWhite}>WELCOME TO NETFLIX!</Text>
+      <Text style={styles.FontSmallWhite}>Swipe left to see what we do</Text>
+      <TouchableOpacity style={styles.ButtonDefaultRed} onPress={() => { navigation.navigate('ScreenHome') }}>
+        <Text style={styles.FontMediumWhite}>JOIN NOW</Text>
       </TouchableOpacity>
     </View>
   );
